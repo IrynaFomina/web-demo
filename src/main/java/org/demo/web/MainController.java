@@ -21,12 +21,19 @@ public class MainController {
         logger.info("Controller created");
     }
 
-    @RequestMapping("get-some-data")
-    @ResponseBody
-    public String[] getSomeData() {
-        logger.info("Logger: Controller method invoked");
-        return new String[]{"1111", "2222", "333"};
-    }
+//    @RequestMapping("get-some-data")
+//    @ResponseBody
+//    public String[] getSomeData() {
+//        logger.info("Logger: Controller method invoked");
+//        return new String[]{"1111", "2222", "333"};
+//    }
+
+//    @RequestMapping("get-some-data2")
+//    @ResponseBody
+//    public String[] getSomeData2() {
+//        logger.info("Logger: Controller method invoked");
+//        return new String[]{"1111", "2222", "333"};
+//    }
 
     /*Add new birds
     *
@@ -37,11 +44,15 @@ public class MainController {
     public boolean addNewBird(String name, String livingArea, Double size) {
         System.out.println("!!!!!!!!!!!!!!!!!!!Logger: Add New Bird action invoked");
         logger.info("Logger: Add New Bird action has started");
-        if (BIRD_STORE.addBird(new Bird(name, livingArea, size))) {
-            logger.info("New Bird with name" + name + " has been added");
-            return true;
+        if (null != name && null != livingArea && null != size) {
+            if (BIRD_STORE.addBird(new Bird(name, livingArea, size))) {
+                logger.info("New Bird with name" + name + " has been added");
+                return true;
+            }
+            logger.warn("Bird with name " + name + " already exist");
+            return false;
         }
-        logger.info("Bird with name " + name + " already exist");
+        logger.error("Some params aren't defined");
         return false;
     }
 
