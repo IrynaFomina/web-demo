@@ -1,4 +1,4 @@
-package main.java.org.demo.store;
+package main.java.org.demo.components;
 
 import main.java.org.demo.entities.Bird;
 
@@ -27,5 +27,5 @@ public abstract class AbstractBirdStore {
      */
     public abstract List searchByLivingArea(String livingAreaToFind);
 
-    public abstract void deleteBird(Bird b);
+    public abstract boolean deleteBird(Bird b);
 }

@@ -1,7 +1,7 @@
 package main.java.org.demo.web;
 
 import main.java.org.demo.entities.Bird;
-import main.java.org.demo.store.BirdStore;
+import main.java.org.demo.components.BirdStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,13 +36,12 @@ public class MainController {
 //    }
 
     /*Add new birds
-    *
-    * http://localhost:8080/web-demo-1.0-SNAPSHOT/main/add-new-bird?name=lola&livingArea=aaa&size=2
-    * */
-    @RequestMapping(value ="add-new-bird", method= RequestMethod.GET)
+     * @param
+     * http://localhost:8080/web-demo-1.0-SNAPSHOT/main/add-new-bird?name=lola&livingArea=aaa&size=2
+     * */
+    @RequestMapping(value = "add-new-bird", method = RequestMethod.PUT)
     @ResponseBody
     public boolean addNewBird(String name, String livingArea, Double size) {
-        System.out.println("!!!!!!!!!!!!!!!!!!!Logger: Add New Bird action invoked");
         logger.info("Logger: Add New Bird action has started");
         if (null != name && null != livingArea && null != size) {
             if (BIRD_STORE.addBird(new Bird(name, livingArea, size))) {
@@ -53,6 +52,22 @@ public class MainController {
             return false;
         }
         logger.error("Some params aren't defined");
+        return false;
+    }
+
+
+    /*
+    * Delete exist Bird
+    * @param1 - bird name
+    * http://localhost:8080/web-demo-1.0-SNAPSHOT/main/delete-bird?name=lola
+    * */
+    @RequestMapping(value = "delete-bird", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean deleteBird(String name) {
+        if (null != name) {
+            logger.error("Bird name isn't defined");
+            return BIRD_STORE.deleteBird(BIRD_STORE.searchByName(name));
+        }
         return false;
     }
 

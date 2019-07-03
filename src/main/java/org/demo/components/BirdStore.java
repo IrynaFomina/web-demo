@@ -1,6 +1,8 @@
-package main.java.org.demo.store;
+package main.java.org.demo.components;
 
 import main.java.org.demo.entities.Bird;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Map;
  * <p>
  * Реализовать паттерн Singleton.
  */
+@Component
 public class BirdStore extends AbstractBirdStore {
     private static final BirdStore birdStore = new BirdStore();
     private Map<String, Bird> listNames;
@@ -72,11 +75,12 @@ public class BirdStore extends AbstractBirdStore {
     }
 
     @Override
-    public synchronized void deleteBird(Bird b) {
+    public synchronized boolean deleteBird(Bird b) {
         if (!listNames.remove(b.getName(),b)) {
             System.out.println("Bird with name " + b.getLivingArea()+ "do not exist");
-            return;
+            return false;
         }
         listLivingAreas.get(b.getLivingArea()).remove(b);
+        return true;
     }
 }
