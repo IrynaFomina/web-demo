@@ -1,6 +1,6 @@
-package main.java.org.demo.components;
+package org.demo.components;
 
-import main.java.org.demo.entities.Bird;
+import org.demo.entities.Bird;
 
 import java.util.List;
 

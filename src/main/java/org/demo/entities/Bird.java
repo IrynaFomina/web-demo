@@ -1,6 +1,11 @@
-package main.java.org.demo.entities;
+package org.demo.entities;
 
 import org.springframework.lang.NonNull;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Bird.
@@ -13,9 +18,12 @@ import org.springframework.lang.NonNull;
  *
  */
 public class Bird {
-    @NonNull private String name;
-    @NonNull private String livingArea;
-    @NonNull private Double size;
+    @NotNull (message = "Name couldn't be null")
+    private String name;
+    @NotNull
+    private String livingArea;
+    @NonNull @Min(value = 1, message = "Size should have value from 1 to 3") @Max(value = 3, message = "Size should have value from 1 to 3")
+    private Double size;
 
     public Bird(String name, String livingArea, Double size) {
         this.name = name;

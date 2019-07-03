@@ -1,6 +1,5 @@
-package test.java.org.demo.web;
+package org.demo.web;
 
-import main.java.org.demo.web.MainController;
 import org.junit.Assert;
 import org.junit.Test;
 

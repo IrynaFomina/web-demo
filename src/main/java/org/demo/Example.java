@@ -1,5 +1,5 @@
 
-package main.java.org.demo;
+package org.demo;
 
 
 import org.slf4j.Logger;
