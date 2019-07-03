@@ -1,5 +1,7 @@
 package main.java.org.demo.entities;
 
+import org.springframework.lang.NonNull;
+
 /**
  * Bird.
  *
@@ -11,9 +13,9 @@ package main.java.org.demo.entities;
  *
  */
 public class Bird {
-    private String name;
-    private String livingArea;
-    private Double size;
+    @NonNull private String name;
+    @NonNull private String livingArea;
+    @NonNull private Double size;
 
     public Bird(String name, String livingArea, Double size) {
         this.name = name;
