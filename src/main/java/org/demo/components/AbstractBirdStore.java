@@ -28,4 +28,6 @@ public abstract class AbstractBirdStore {
     public abstract List searchByLivingArea(String livingAreaToFind);
 
     public abstract boolean deleteBird(Bird b);
+
+    public abstract boolean updateBird(String name,String livingArea, double size);
 }

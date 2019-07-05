@@ -83,4 +83,12 @@ public class BirdStore extends AbstractBirdStore {
         listLivingAreas.get(b.getLivingArea()).remove(b);
         return true;
     }
+
+    @Override
+    public boolean updateBird(String name,String livingArea, double size) {
+        if (deleteBird(searchByName(name))) {
+            return addBird(new Bird(name, livingArea, size));
+        }
+        return false;
+    }
 }
