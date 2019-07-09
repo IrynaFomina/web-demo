@@ -13,7 +13,6 @@ public class MainControllerTest {
         Assert.assertFalse(mainController.addNewBird(null, null,null));
         Assert.assertTrue(mainController.addNewBird("bird1", "area1",2d ));
         Assert.assertFalse(mainController.addNewBird("bird1", "area1",2d ));
-        mainController = null;
     }
 
     @Test
@@ -21,7 +20,6 @@ public class MainControllerTest {
         MainController mainController = new MainController();
         mainController.addNewBird("bird1", "area1",2d );
         Assert.assertEquals("bird1", mainController.getBird("bird1").getName());
-        mainController=null;
     }
 
     @Test
