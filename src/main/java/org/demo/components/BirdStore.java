@@ -15,18 +15,18 @@ import java.util.Map;
  */
 @Component
 public class BirdStore extends AbstractBirdStore {
-    private static final BirdStore birdStore = new BirdStore();
+//    private static final BirdStore birdStore = new BirdStore();
     private Map<String, Bird> listNames;
     private Map<String, List<Bird>> listLivingAreas;
 
-    private BirdStore() {
+    public BirdStore() {
         listNames = new HashMap<>();
         listLivingAreas = new HashMap<>();
     }
 
-    public static BirdStore of() {
-        return birdStore;
-    }
+//    public static BirdStore of() {
+//        return birdStore;
+//    }
 
     @Override
     public String toString() {
@@ -76,12 +76,15 @@ public class BirdStore extends AbstractBirdStore {
 
     @Override
     public synchronized boolean deleteBird(Bird b) {
-        if (!listNames.remove(b.getName(),b)) {
-            System.out.println("Bird with name " + b.getLivingArea()+ "do not exist");
-            return false;
+        if (listNames.size()>0) {
+            if (!listNames.remove(b.getName(), b)) {
+                System.out.println("Bird with name " + b.getLivingArea() + "do not exist");
+                return false;
+            }
+            listLivingAreas.get(b.getLivingArea()).remove(b);
+            return true;
         }
-        listLivingAreas.get(b.getLivingArea()).remove(b);
-        return true;
+        return false;
     }
 
     @Override

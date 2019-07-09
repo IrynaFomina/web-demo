@@ -6,6 +6,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Bird.
@@ -63,5 +64,20 @@ public class Bird {
 
     public void setSize(Double size) {
         this.size = size;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bird bird = (Bird) o;
+        return Objects.equals(name, bird.name) &&
+                Objects.equals(livingArea, bird.livingArea) &&
+                Objects.equals(size, bird.size);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, livingArea, size);
     }
 }
