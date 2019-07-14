@@ -4,6 +4,7 @@ import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Objects;
 
 public class Day {
     private final static String[] DAY_NAMES= new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
@@ -16,7 +17,7 @@ public class Day {
     public Day(int numInWeek, int numInmonth) {
         this.numInWeek = numInWeek;
         this.numInmonth = numInmonth;
-        this.name = DAY_NAMES[numInWeek];
+        this.name = DAY_NAMES[numInWeek-1];
     }
 
     public int getNumInWeek() {
@@ -41,5 +42,20 @@ public class Day {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Day day = (Day) o;
+        return numInWeek == day.numInWeek &&
+                numInmonth == day.numInmonth &&
+                Objects.equals(name, day.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numInWeek, numInmonth, name);
     }
 }

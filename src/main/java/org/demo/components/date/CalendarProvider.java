@@ -42,6 +42,8 @@ public class CalendarProvider implements ICalendarProvider {
 
     @Override
     public List<String> getMonthesFormatted(int fiscalDateFrom, int fiscalDateTo) throws InvalidFiscalDateFormatException {
+        List<Month> months = getMonthes(fiscalDateFrom, fiscalDateTo);
+
         return null;
     }
 }
