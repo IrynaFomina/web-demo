@@ -1,6 +1,6 @@
-package org.demo.components;
+package org.demo.components.date;
 
-import org.demo.entities.Month;
+import org.demo.entities.date.Month;
 import org.demo.exceptions.InvalidDayInYearException;
 import org.demo.exceptions.InvalidFiscalDateFormatException;
 
