@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class CalendarProviderController {
     @ResponseBody
     @Validated
 //    @Valid @NotNull
-    public Month getDayInfo(@Validated @NonNull Integer year, int dayInYear) throws InvalidDayInYearException {
+    public Month getDayInfo(@Validated @NotNull Integer year, @Min(1) @Max(356) int dayInYear) throws InvalidDayInYearException {
 //        getDayInfoChecker(year, dayInYear);
         return CALENDAR_PROVIDER.getDayInfo(year, dayInYear);
     }
