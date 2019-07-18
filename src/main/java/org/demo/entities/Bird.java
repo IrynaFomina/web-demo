@@ -1,5 +1,6 @@
 package org.demo.entities;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.Max;
@@ -18,6 +19,8 @@ import java.util.Objects;
  * size – число с плавающей точкой, может быть незаполненным (Double).
  *
  */
+
+@EqualsAndHashCode
 public class Bird {
     @NotNull (message = "Name couldn't be null")
     private String name;
@@ -64,20 +67,5 @@ public class Bird {
 
     public void setSize(Double size) {
         this.size = size;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bird bird = (Bird) o;
-        return Objects.equals(name, bird.name) &&
-                Objects.equals(livingArea, bird.livingArea) &&
-                Objects.equals(size, bird.size);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, livingArea, size);
     }
 }
