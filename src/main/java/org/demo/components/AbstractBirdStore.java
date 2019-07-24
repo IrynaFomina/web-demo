@@ -1,6 +1,7 @@
 package org.demo.components;
 
 import org.demo.entities.Bird;
+import org.demo.exceptions.BirdStoreException;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public abstract class AbstractBirdStore {
      *
      * Если объект с тактм именем уже существует - вывести Bird With name .... already exists.
      */
-    public abstract boolean addBird(Bird b);
+    public abstract boolean addBird(Bird b) throws BirdStoreException;
 
     /**
      * Вернуть объект у которого name = nameToSearch
@@ -27,7 +28,7 @@ public abstract class AbstractBirdStore {
      */
     public abstract List searchByLivingArea(String livingAreaToFind);
 
-    public abstract boolean deleteBird(Bird b);
+    public abstract boolean deleteBird(String b) throws BirdStoreException;
 
     public abstract boolean updateBird(String name,String livingArea, double size);
 }

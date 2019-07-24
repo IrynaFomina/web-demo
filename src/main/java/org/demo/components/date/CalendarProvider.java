@@ -42,8 +42,22 @@ public class CalendarProvider implements ICalendarProvider {
 
     @Override
     public List<String> getMonthesFormatted(int fiscalDateFrom, int fiscalDateTo) throws InvalidFiscalDateFormatException {
-        List<Month> months = getMonthes(fiscalDateFrom, fiscalDateTo);
+        Calendar firstDate = Calendar.getInstance();
+        Calendar latsDate = Calendar.getInstance();
+        List<String> months = new ArrayList<>();
+        firstDate.set(fiscalDateFrom / 100, (fiscalDateFrom % 100) - 1, 1);
+        latsDate.set(fiscalDateTo / 100, (fiscalDateTo % 100) - 1, 1);
 
-        return null;
+        while (firstDate.get(Calendar.YEAR) < latsDate.get(Calendar.YEAR) ||
+                firstDate.get(Calendar.MONTH) < latsDate.get(Calendar.MONTH)) {
+            months.add(Integer.toString(firstDate.get(Calendar.YEAR)) +
+                    Integer.toString(firstDate.get(Calendar.MONTH)));
+            firstDate.add(Calendar.MONTH, 1);
+        }
+
+        months.add(Integer.toString(latsDate.get(Calendar.YEAR)) +
+                Integer.toString(latsDate.get(Calendar.MONTH)));
+
+        return months;
     }
 }

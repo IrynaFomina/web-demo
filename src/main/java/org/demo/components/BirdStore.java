@@ -1,6 +1,9 @@
 package org.demo.components;
 
 import org.demo.entities.Bird;
+import org.demo.exceptions.BirdStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,10 +18,10 @@ import java.util.Map;
  */
 @Component
 public class BirdStore extends AbstractBirdStore {
-//    private static final BirdStore birdStore = new BirdStore();
+    //    private static final BirdStore birdStore = new BirdStore();
     private Map<String, Bird> listNames;
     private Map<String, List<Bird>> listLivingAreas;
-
+    private static final Logger logger = LoggerFactory.getLogger(BirdStore.class);
     public BirdStore() {
         listNames = new HashMap<>();
         listLivingAreas = new HashMap<>();
@@ -38,12 +41,11 @@ public class BirdStore extends AbstractBirdStore {
     }
 
     @Override
-    public synchronized boolean addBird(Bird b) {
+    public synchronized boolean addBird(Bird b) throws BirdStoreException {
         if (!listNames.containsKey(b.getName())) {
             listNames.put(b.getName(), b);
         } else {
-            System.out.println("Bird with name " + b.getName() + "is already exist");
-            return false;
+            throw new BirdStoreException("Bird with name " + b.getName() + "is already exist");
         }
         List<Bird> list;
         if (listLivingAreas.containsKey(b.getLivingArea())) {
@@ -74,23 +76,41 @@ public class BirdStore extends AbstractBirdStore {
         return null;
     }
 
+//    @Override
+//    public synchronized boolean deleteBird(Bird b) throws BirdStoreException {
+//        logger.error("!!!!!INFO !!!!!! :" + b.toString());
+//        if (listNames.size() > 0) {
+//            if (!listNames.remove(b.getName(), b)) {
+//                throw new BirdStoreException("Bird with name " + b.getName() + "do not exist");
+//            }
+//            listLivingAreas.get(b.getLivingArea()).remove(b);
+//            return true;
+//        }
+//        return false;
+//    }
+
     @Override
-    public synchronized boolean deleteBird(Bird b) {
-        if (listNames.size()>0) {
-            if (!listNames.remove(b.getName(), b)) {
-                System.out.println("Bird with name " + b.getLivingArea() + "do not exist");
-                return false;
+    public synchronized boolean deleteBird(String b) throws BirdStoreException {
+        logger.error("!!!!!INFO !!!!!! :" + b.toString());
+        if (listNames.size() > 0) {
+            Bird birdToDelete = searchByName(b);
+            if (birdToDelete != null) {
+                listNames.remove(b, birdToDelete);
+                listLivingAreas.get(birdToDelete.getLivingArea()).remove(birdToDelete);
+                return true;
             }
-            listLivingAreas.get(b.getLivingArea()).remove(b);
-            return true;
         }
-        return false;
+        throw new BirdStoreException("Bird with name " + b + "do not exist");
     }
 
     @Override
-    public boolean updateBird(String name,String livingArea, double size) {
-        if (deleteBird(searchByName(name))) {
-            return addBird(new Bird(name, livingArea, size));
+    public boolean updateBird(String name, String livingArea, double size) {
+        try {
+            if (deleteBird(name)) {
+                return addBird(new Bird(name, livingArea, size));
+            }
+        } catch (BirdStoreException e) {
+            e.printStackTrace();
         }
         return false;
     }

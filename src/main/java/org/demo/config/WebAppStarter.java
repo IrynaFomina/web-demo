@@ -1,4 +1,4 @@
-package org.demo;
+package org.demo.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

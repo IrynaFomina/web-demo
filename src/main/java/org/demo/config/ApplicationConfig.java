@@ -1,9 +1,9 @@
-package org.demo;
+package org.demo.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = {"org.demo.components","org.demo.web"})
+@ComponentScan(basePackages = {"org.demo.components"})
 public class ApplicationConfig {
 }
