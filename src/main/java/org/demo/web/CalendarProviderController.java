@@ -39,15 +39,22 @@ public class CalendarProviderController {
     }
 
     /*
-    * http://localhost:8080/web-demo-1.0-SNAPSHOT/date/get-day-info?year=1983&dayInYear=26*/
+    * http://localhost:8080/web-demo-1.0-SNAPSHOT/date/get-day-info?year=1983&dayInYear=26 */
 
     @RequestMapping(value = "get-day-info", method = RequestMethod.GET)
     @ResponseBody
     @Validated
-//    @Valid @NotNull
     public Month getDayInfo(@Validated @NotNull Integer year, @Min(1) @Max(356) int dayInYear) throws InvalidDayInYearException {
-//        getDayInfoChecker(year, dayInYear);
         return CALENDAR_PROVIDER.getDayInfo(year, dayInYear);
+    }
+
+    @RequestMapping(value = "get-months-string", method = RequestMethod.GET)
+    @ResponseBody
+    @Validated
+    public List<String> getMonthesFormatted(int fiscalDateFrom, int fiscalDateTo) throws InvalidFiscalDateFormatException {
+        fiscalDateChecker(fiscalDateFrom);
+        fiscalDateChecker(fiscalDateTo);
+        return CALENDAR_PROVIDER.getMonthesFormatted(fiscalDateFrom, fiscalDateTo);
     }
 
     private void getDayInfoChecker(Integer year, Integer day) throws InvalidDayInYearException {
